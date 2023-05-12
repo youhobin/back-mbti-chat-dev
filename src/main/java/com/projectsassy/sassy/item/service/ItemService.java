@@ -4,7 +4,6 @@ import com.projectsassy.sassy.common.code.ErrorCode;
 import com.projectsassy.sassy.common.exception.CustomIllegalStateException;
 import com.projectsassy.sassy.item.domain.Badge;
 import com.projectsassy.sassy.item.domain.Item;
-import com.projectsassy.sassy.s3.S3Service;
 import com.projectsassy.sassy.userItem.domain.UserItem;
 import com.projectsassy.sassy.item.dto.*;
 import com.projectsassy.sassy.item.repository.ItemRepository;
@@ -13,7 +12,6 @@ import com.projectsassy.sassy.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,14 +23,12 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
     private final UserService userService;
-    private final S3Service s3Service;
 
     @Transactional
-    public void createBadge(MultipartFile multipartFile, CreateBadgeRequest createBadgeRequest, String dirName) {
-        String imagePath = s3Service.upload(multipartFile, dirName);
+    public void createBadge(CreateBadgeRequest createBadgeRequest) {
         Badge badge = new Badge(createBadgeRequest.getItemName(),
             createBadgeRequest.getPrice(),
-            imagePath);
+                createBadgeRequest.getBadgeImage());
         itemRepository.save(badge);
     }
 

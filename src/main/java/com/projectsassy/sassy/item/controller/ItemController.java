@@ -1,8 +1,6 @@
 package com.projectsassy.sassy.item.controller;
 
-import com.projectsassy.sassy.common.code.ErrorCode;
 import com.projectsassy.sassy.common.code.SuccessCode;
-import com.projectsassy.sassy.common.exception.CustomIllegalArgumentException;
 import com.projectsassy.sassy.common.response.ApiResponse;
 import com.projectsassy.sassy.common.util.SecurityUtil;
 import com.projectsassy.sassy.item.dto.AllBadgeResponse;
@@ -24,8 +22,8 @@ public class ItemController {
     private final ItemService itemService;
 
     @PostMapping("/badge/new")
-    public ResponseEntity createItem(@RequestParam MultipartFile multipartFile, @RequestBody CreateBadgeRequest createBadgeRequest){
-        itemService.createBadge(multipartFile, createBadgeRequest, "badge");
+    public ResponseEntity createItem(@RequestBody CreateBadgeRequest createBadgeRequest){
+        itemService.createBadge(createBadgeRequest);
         return new ResponseEntity<>(new ApiResponse(SuccessCode.CREATE_ITEM), HttpStatus.OK);
     }
 

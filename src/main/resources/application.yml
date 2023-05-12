@@ -1,0 +1,80 @@
+spring:
+  profiles:
+    default: local
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: pjsassy0401@gmail.com
+    password: tppevixnakaifyml
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/sassy
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+
+jwt:
+  secret: 7xc6zv7867sdva7fywefe78sdyf78asyf78aseyf78ysdf8xy8v7yv78ayvd87dfyvadfbdybgWEJF32HJRK3H3JK2KJ;
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+#    defer-datasource-initialization: true # Hibernate 초기화 이후 data.sql 실행
+
+  sql:
+    init:
+      mode: always
+
+  h2:
+    console:
+      enabled: true
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  sql:
+    init:
+      mode: never # data.sql 사용 안하도록
