@@ -2,13 +2,13 @@ package com.projectsassy.sassy.user.dto;
 
 import com.projectsassy.sassy.user.domain.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 public class UserJoinDto {
 
@@ -29,6 +29,16 @@ public class UserJoinDto {
 
     @NotNull(message = "MBTI는 Null 일 수 없습니다.")
     private String mbti;
+
+    @Builder
+    private UserJoinDto(String loginId, String password, String nickname, String email, String gender, String mbti) {
+        this.loginId = loginId;
+        this.password = password;
+        this.nickname = nickname;
+        this.email = email;
+        this.gender = gender;
+        this.mbti = mbti;
+    }
 
     public User toEntity() {
         return User.builder()
